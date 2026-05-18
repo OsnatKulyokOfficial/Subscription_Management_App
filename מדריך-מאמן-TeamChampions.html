@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מדריך מאמן — TeamChampions</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f5f7fa;
+    color: #1e293b;
+    padding: 40px 20px 60px;
+    line-height: 1.7;
+  }
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+  .hero {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    color: white;
+    padding: 40px 40px 36px;
+    text-align: center;
+  }
+  .hero h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 6px; }
+  .hero p { font-size: 1rem; opacity: 0.85; margin-bottom: 28px; }
+  .qr-block {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    background: rgba(255,255,255,0.12);
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 24px 32px 20px;
+  }
+  .qr-block img {
+    width: 180px;
+    height: 180px;
+    border-radius: 12px;
+    background: white;
+    padding: 8px;
+  }
+  .qr-label {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .qr-url {
+    font-size: 0.95rem;
+    font-weight: 700;
+    background: rgba(255,255,255,0.2);
+    padding: 6px 16px;
+    border-radius: 30px;
+    letter-spacing: 0.3px;
+  }
+  .content { padding: 32px 40px; }
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #4f46e5;
+    margin: 32px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 2px solid #e0e7ff;
+    padding-bottom: 8px;
+  }
+  h2:first-child { margin-top: 0; }
+  h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #334155;
+    margin: 18px 0 8px;
+  }
+  p { margin-bottom: 10px; color: #475569; }
+  ol, ul {
+    padding-right: 20px;
+    margin-bottom: 12px;
+    color: #475569;
+  }
+  li { margin-bottom: 5px; }
+  .box {
+    background: #f0f4ff;
+    border: 1px solid #c7d2fe;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    color: #3730a3;
+    font-size: 0.92rem;
+  }
+  .box strong { display: block; margin-bottom: 4px; }
+  .tip {
+    background: #fefce8;
+    border: 1px solid #fde68a;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    color: #78350f;
+    font-size: 0.9rem;
+  }
+  .section {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 12px 0;
+    border: 1px solid #e2e8f0;
+  }
+  .section h3 { margin-top: 0; }
+
+  /* Steps visual */
+  .steps-row {
+    display: flex;
+    gap: 0;
+    margin: 16px 0;
+    align-items: flex-start;
+  }
+  .step-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+  }
+  .step-item:not(:last-child)::after {
+    content: '‹';
+    position: absolute;
+    left: -6px;
+    top: 22px;
+    font-size: 1.4rem;
+    color: #a5b4fc;
+    font-weight: bold;
+  }
+  .step-circle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #e0e7ff;
+    border: 2px solid #a5b4fc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+  }
+  .step-num {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #6366f1;
+    margin-bottom: 2px;
+  }
+  .step-text {
+    font-size: 0.78rem;
+    color: #475569;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  /* Device cards */
+  .device-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 12px 0;
+  }
+  .device-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .device-card h4 {
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+  }
+  .device-card ol, .device-card ul {
+    font-size: 0.88rem;
+    color: #475569;
+  }
+
+  /* FAQ */
+  .faq-item {
+    border-bottom: 1px solid #f1f5f9;
+    padding: 14px 0;
+  }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q { font-weight: 700; color: #1e293b; margin-bottom: 4px; }
+  .faq-a { color: #475569; font-size: 0.93rem; margin: 0; }
+
+  .sticky-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid #f1f5f9;
+    text-align: center;
+    padding: 10px 20px;
+    color: #94a3b8;
+    font-size: 0.82rem;
+    z-index: 100;
+  }
+  body { padding-bottom: 44px; }
+  code {
+    background: #e0e7ff;
+    color: #3730a3;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.95em;
+  }
+  @media (max-width: 600px) {
+    .content { padding: 24px 20px; }
+    .device-grid { grid-template-columns: 1fr; }
+    .steps-row { flex-wrap: wrap; gap: 12px; }
+    .step-item::after { display: none; }
+    .hero { padding: 28px 20px; }
+    .qr-block img { width: 150px; height: 150px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO + QR -->
+  <div class="hero">
+    <h1>TeamChampions</h1>
+    <p>מדריך שימוש למאמן | דור שאולוב</p>
+    <div class="qr-block">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://teamchampions.vercel.app&color=1e293b&bgcolor=ffffff" alt="QR לאפליקציה" />
+      <p class="qr-label">סרוק לפתיחת האפליקציה</p>
+      <p class="qr-url">teamchampions.vercel.app</p>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- כיצד לפתוח -->
+    <h2>📲 כיצד לפתוח את האפליקציה</h2>
+    <p>שלושה דרכים להיכנס:</p>
+
+    <div class="section">
+      <h3>1. סריקת ברקוד QR (הכי מהיר)</h3>
+      <p>פתח את מצלמת הטלפון, כוון לברקוד שמעל — האפליקציה תיפתח מיד בדפדפן.</p>
+    </div>
+
+    <div class="section">
+      <h3>2. כתובת קישור ישיר</h3>
+      <p>הקלד בדפדפן: <code>teamchampions.vercel.app</code></p>
+    </div>
+
+    <div class="section">
+      <h3>3. הוספה למסך הבית (מומלץ — כמו אפליקציה רגילה)</h3>
+      <div class="device-grid" style="margin-top:12px">
+        <div class="device-card">
+          <h4>📱 iPhone</h4>
+          <div class="steps-row">
+            <div class="step-item">
+              <div class="step-circle">🌐</div>
+              <p class="step-num">שלב 1</p>
+              <p class="step-text">פתח ב-Safari או Chrome</p>
+            </div>
+            <div class="step-item">
+              <div class="step-circle">⬆️</div>
+              <p class="step-num">שלב 2</p>
+              <p class="step-text">לחץ על כפתור השיתוף</p>
+            </div>
+            <div class="step-item">
+              <div class="step-circle">➕</div>
+              <p class="step-num">שלב 3</p>
+              <p class="step-text">בחר "הוסף למסך הבית"</p>
+            </div>
+            <div class="step-item">
+              <div class="step-circle">✅</div>
+              <p class="step-num">שלב 4</p>
+              <p class="step-text">לחץ "הוסף"</p>
+            </div>
+          </div>
+          <p style="color:#dc2626;font-size:0.82rem;margin-top:4px">⚠️ חובה להוסיף למסך הבית לקבלת התראות Push</p>
+        </div>
+
+        <div class="device-card">
+          <h4>🤖 Android</h4>
+          <div class="steps-row">
+            <div class="step-item">
+              <div class="step-circle">🌐</div>
+              <p class="step-num">שלב 1</p>
+              <p class="step-text">פתח ב-Chrome</p>
+            </div>
+            <div class="step-item">
+              <div class="step-circle">📩</div>
+              <p class="step-num">שלב 2</p>
+              <p class="step-text">לחץ "התקן" בבאנר שיופיע</p>
+            </div>
+            <div class="step-item">
+              <div class="step-circle">✅</div>
+              <p class="step-num">שלב 3</p>
+              <p class="step-text">הסמל יופיע על המסך</p>
+            </div>
+          </div>
+          <p style="color:#16a34a;font-size:0.82rem;margin-top:4px">✓ מקבל התראות Push גם בלי להוסיף למסך הבית</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>🔑 כניסה ראשונה לאפליקציה</h2>
+    <div class="steps-row">
+      <div class="step-item">
+        <div class="step-circle">📱</div>
+        <p class="step-num">שלב 1</p>
+        <p class="step-text">הכנס מספר טלפון</p>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">👤</div>
+        <p class="step-num">שלב 2</p>
+        <p class="step-text">בחר "מתאמן"</p>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">🔑</div>
+        <p class="step-num">שלב 3</p>
+        <p class="step-text">הכנס קוד <code>TeamChamp</code></p>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">✍️</div>
+        <p class="step-num">שלב 4</p>
+        <p class="step-text">הכנס שם מלא</p>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">🏠</div>
+        <p class="step-num">מהפעם הבאה</p>
+        <p class="step-text">נכנסים ישירות, ללא קוד</p>
+      </div>
+    </div>
+
+    <div class="box" style="margin-top:16px">
+      <strong>🔑 קוד כניסה למאמן</strong>
+      קוד הכניסה שלך: <code>0547448118</code> (בלשונית "מאמן")
+    </div>
+
+    <h2>🏠 מסך ראשי</h2>
+    <ul>
+      <li>סיכום יומי: כמה אימונים היום ומי נרשם</li>
+      <li>סטטיסטיקות: מתאמנים פעילים, אימונים השבוע</li>
+      <li><strong>ברקוד QR</strong> — לחץ 📲 QR לשיתוף עם מתאמנים</li>
+    </ul>
+
+    <h2>👤 חברים — ניהול מתאמנים</h2>
+    <div class="section">
+      <h3>הוספת מתאמן חדש</h3>
+      <ol>
+        <li>לחץ ➕ הוסף</li>
+        <li>הכנס מספר טלפון + שם מלא</li>
+        <li>בחר "מתאמן" ולחץ הוסף</li>
+      </ol>
+    </div>
+    <div class="section">
+      <h3>הסרת מתאמן</h3>
+      <p>לחץ על שם המתאמן ← לחץ "הסר".</p>
+      <p>המתאמן <strong>לא נמחק</strong> — הוא עובר לרשימת "לא פעילים". כל הנתונים שלו (נוכחות, תשלומים, היסטוריה) נשמרים.</p>
+      <p style="color:#64748b;font-size:0.88rem">בתחתית הדף יופיע "הצג X מתאמנים לא פעילים" ← ניתן ללחוץ "החזר לפעילים" בכל עת.</p>
+    </div>
+    <div class="section">
+      <h3>📋 דוח אישי לפי מתאמן</h3>
+      <p>לחיצה על <strong>שם כל מתאמן</strong> — מכל מקום באפליקציה (חברים, נוכחות, דוחות, מנויים) — פותחת את הדוח האישי שלו: 12 חודשים אחרונים, כניסות, מנוי, חוב ותשלומים.</p>
+    </div>
+    <p>ניתן לחפש לפי שם או מספר טלפון בשורת החיפוש למעלה.</p>
+
+    <h2>📅 אימונים — ניהול לוח זמנים</h2>
+    <div class="section">
+      <h3>אימון קבוע (שבועי)</h3>
+      <ol>
+        <li>לחץ ➕ אימון חדש</li>
+        <li>בחר "קבוע (שבועי)" + יום בשבוע + שעה</li>
+        <li>שייך לקבוצה ← לחץ שמור</li>
+      </ol>
+    </div>
+    <div class="section">
+      <h3>אימון חד פעמי</h3>
+      <ol>
+        <li>לחץ ➕ אימון חדש</li>
+        <li>בחר "חד פעמי" + תאריך + שעה ← לחץ שמור</li>
+      </ol>
+    </div>
+    <div class="box">
+      <strong>⚠️ ביטול אימון</strong>
+      לחץ על האימון ← "בטל אימון" — כל הרשומים יקבלו <strong>הודעת Push אוטומטית</strong> לטלפון.
+    </div>
+
+    <h2>✅ נוכחות — סימון ידני</h2>
+    <ol>
+      <li>בחר אימון מהרשימה</li>
+      <li>בחר תאריך</li>
+      <li>סמן ✓ ליד כל מתאמן שהגיע</li>
+    </ol>
+    <p>ניתן לסמן גם בדיעבד לאחר האימון.</p>
+
+    <h2>💳 מנויים וחיוב</h2>
+
+    <div class="section">
+      <h3>הגדרת סוגי מנוי (פעם אחת בהתחלה)</h3>
+      <ol>
+        <li>עבור ל"מנויים" ← לשונית "סוגי מנוי"</li>
+        <li>לחץ ➕ הוסף סוג מנוי</li>
+        <li>הכנס שם, מחיר ₪ וכמות כניסות בחודש</li>
+      </ol>
+      <p style="color:#64748b;font-size:0.88rem">לדוג׳: "מנוי 4 כניסות" ₪200 | "מנוי 8 כניסות" ₪350 | "מנוי 12 כניסות" ₪480</p>
+    </div>
+
+    <div class="section">
+      <h3>דוח חיוב חודשי — אוטומטי לחלוטין</h3>
+      <p>עבור ל"מנויים" ← לשונית "חיוב חודשי" ← בחר חודש.</p>
+      <p>המערכת <strong>בעצמה</strong> מחשבת לפי כמה פעמים כל מתאמן הגיע ומשייכת אותו למנוי המתאים. אין צורך לשייך ידנית.</p>
+      <ul>
+        <li>הגיע 3 פעמים → מחויב במנוי 4 כניסות</li>
+        <li>הגיע 7 פעמים → מחויב במנוי 8 כניסות</li>
+        <li>לא הגיע → לא מחויב</li>
+      </ul>
+      <p style="margin-top:10px">בראש הדף תמיד מופיעות 3 תיבות סיכום: <strong>לגבות | שולם | נותר</strong></p>
+    </div>
+
+    <div class="section">
+      <h3>סימון תשלום — חלקי או מלא</h3>
+      <p>כשמתאמן משלם, לחץ <strong>"+ הוסף תשלום"</strong> ← הכנס את הסכום ששולם ← שמור.</p>
+      <ul>
+        <li><strong>שולם הכל</strong> → מסומן ירוק ✓</li>
+        <li><strong>שולם חלקית</strong> → מציג "נותר ₪X" בצהוב</li>
+        <li><strong>לא שולם</strong> → מציג "לא שולם" בכתום</li>
+      </ul>
+      <p style="color:#64748b;font-size:0.88rem;margin-top:6px">כל חודש עצמאי — מה שלא שולם בחודש מאי נשאר חייב במאי, ויוני מתחיל מחדש.</p>
+    </div>
+
+    <div class="section">
+      <h3>היסטוריית תשלומים לפי מתאמן</h3>
+      <p>לחץ על <strong>שם המתאמן</strong> בכל מקום באפליקציה ← נפתחת טבלה עם 12 החודשים האחרונים:</p>
+      <table style="width:100%;font-size:0.85rem;border-collapse:collapse;margin-top:8px">
+        <thead>
+          <tr style="color:#64748b;border-bottom:1px solid #e2e8f0">
+            <th style="text-align:right;padding:6px 4px">חודש</th>
+            <th style="text-align:center;padding:6px 4px">כניסות</th>
+            <th style="text-align:right;padding:6px 4px">מנוי</th>
+            <th style="text-align:center;padding:6px 4px">חוב</th>
+            <th style="text-align:center;padding:6px 4px">שולם</th>
+            <th style="text-align:center;padding:6px 4px">סטטוס</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f1f5f9">
+            <td style="padding:6px 4px;white-space:nowrap">5/25<br><span style="color:#94a3b8;font-size:0.8rem">מאי</span></td>
+            <td style="text-align:center;padding:6px 4px">6</td>
+            <td style="padding:6px 4px;font-size:0.82rem">מנוי 8 כניסות</td>
+            <td style="text-align:center;padding:6px 4px">₪350</td>
+            <td style="text-align:center;padding:6px 4px;color:#16a34a">₪200</td>
+            <td style="text-align:center;padding:6px 4px"><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:20px;font-size:0.8rem">נותר ₪150</span></td>
+          </tr>
+          <tr>
+            <td style="padding:6px 4px;white-space:nowrap">4/25<br><span style="color:#94a3b8;font-size:0.8rem">אפריל</span></td>
+            <td style="text-align:center;padding:6px 4px">8</td>
+            <td style="padding:6px 4px;font-size:0.82rem">מנוי 8 כניסות</td>
+            <td style="text-align:center;padding:6px 4px">₪350</td>
+            <td style="text-align:center;padding:6px 4px;color:#16a34a">₪350</td>
+            <td style="text-align:center;padding:6px 4px"><span style="background:#dcfce7;color:#15803d;padding:2px 8px;border-radius:20px;font-size:0.8rem">שולם ✓</span></td>
+          </tr>
+          <tr>
+            <td style="padding:6px 4px;white-space:nowrap">3/25<br><span style="color:#94a3b8;font-size:0.8rem">מרץ</span></td>
+            <td style="text-align:center;padding:6px 4px">—</td>
+            <td style="padding:6px 4px;font-size:0.82rem">—</td>
+            <td style="text-align:center;padding:6px 4px">—</td>
+            <td style="text-align:center;padding:6px 4px">—</td>
+            <td style="text-align:center;padding:6px 4px"><span style="color:#cbd5e1">—</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box">
+      <strong>📲 שליחת סיכום חודשי למתאמנים</strong>
+      בסוף כל חודש לחץ על "שלח סיכום חודשי לכל המתאמנים" — כל מתאמן מקבל הודעת Push לטלפון עם כמה פעמים הגיע, באיזה מנוי הוא מחויב וכמה נותר לשלם.<br>
+      <span style="font-size:0.88rem;opacity:0.85">ב-1 לכל חודש נשלחת גם הודעה אוטומטית על החודש שעבר — ללא צורך בלחיצה.</span>
+    </div>
+
+    <h2>📊 דוחות — סטטיסטיקות חודשיות</h2>
+    <ul>
+      <li>בחר חודש עם החיצים</li>
+      <li>רואה לכל מתאמן: כמה אימונים הגיע + אחוז נוכחות</li>
+      <li>ממוצע נוכחות כלל המתאמנים</li>
+      <li>לחיצה על שם מתאמן — פתיחת הדוח האישי שלו</li>
+    </ul>
+
+    <h2>❓ שאלות נפוצות</h2>
+
+    <div class="faq-item">
+      <p class="faq-q">ש: מתאמן שכח את הקוד / לא יודע להיכנס.</p>
+      <p class="faq-a">ת: הקוד הוא תמיד <code>TeamChamp</code> (אותיות לטיניות, עם אות גדולה T ו-C). אם עדיין לא עובד — הוסף אותו ידנית מ"חברים" ← ➕ הוסף.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">ש: מתאמן לא מקבל הודעות Push.</p>
+      <p class="faq-a">ת: (1) iPhone — חייב להוסיף למסך הבית. (2) Android — צריך לאשר התראות בפעם הראשונה. אם דחה — הגדרות הדפדפן ← אתרים ← TeamChampions ← אפשר התראות.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">ש: מתאמן החליף טלפון.</p>
+      <p class="faq-a">ת: הוא נכנס עם אותו מספר טלפון + קוד TeamChamp — כל הנתונים שלו שמורים בענן ויחזרו אוטומטית.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">ש: רוצה להוסיף מאמן נוסף.</p>
+      <p class="faq-a">ת: "חברים" ← ➕ הוסף ← בחר "מאמן". הוא ייכנס עם הקוד <code>0547448118</code>.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">ש: מתאמן הוסר בטעות.</p>
+      <p class="faq-a">ת: "חברים" ← גלול למטה ← לחץ "הצג מתאמנים לא פעילים" ← לחץ "החזר לפעילים". כל הנתונים שלו שמורים.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">ש: איפה הנתונים שמורים? יש גיבוי?</p>
+      <p class="faq-a">ת: הכל שמור בענן (Supabase). גם אם תחליף טלפון / מחשב — הנתונים בטוחים.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">ש: האפליקציה לא נפתחת / תקועה.</p>
+      <p class="faq-a">ת: רענן את הדף (משוך למטה בטלפון). אם עדיין תקוע — הוסף <code>?reset=1</code> בסוף הקישור, זה מנקה ומאפס את הכניסה.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">ש: רוצה לשנות מחיר / שם של מנוי.</p>
+      <p class="faq-a">ת: "מנויים" ← "סוגי מנוי" ← לחץ "עריכה" ליד המנוי ← שנה ← שמור.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">ש: צריך לשנות משהו באפליקציה / הייתה בעיה.</p>
+      <p class="faq-a">ת: צור קשר עם אסנת קוליוק: <strong>050-4796796</strong></p>
+    </div>
+
+  </div>
+
+  <div class="sticky-footer">כל הזכויות שמורות לאסנת קוליוק &nbsp;|&nbsp; 050-4796796</div>
+</div>
+</body>
+</html>
