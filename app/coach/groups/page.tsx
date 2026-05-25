@@ -204,7 +204,7 @@ export default function GroupsPage() {
 
   const addGroup = async () => {
     if (!newGroupName.trim()) return
-    await supabase.from('groups').insert({ name: newGroupName.trim() })
+    await supabase.from('groups').insert({ name: newGroupName.trim(), color: '#6366f1', max_capacity: 30 })
     setNewGroupName('')
     setShowAddGroup(false)
     await load()

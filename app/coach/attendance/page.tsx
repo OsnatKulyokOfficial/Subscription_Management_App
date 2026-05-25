@@ -106,7 +106,7 @@ export default function AttendancePage() {
   const markAttendance = async (row: AttendeeRow, attended: boolean | null) => {
     setToggling(row.userId)
     const s = sessions.find(x => x.id === selectedSession)
-    if (!s) return
+    if (!s) { setToggling(null); return }
 
     if (row.registrationId) {
       if (attended === null) {
