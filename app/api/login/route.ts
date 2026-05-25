@@ -83,6 +83,7 @@ export async function POST(req: NextRequest) {
     .single()
 
   if (error || !newUser) {
+    console.error('insert error:', JSON.stringify(error))
     return NextResponse.json({ error: 'שגיאה ביצירת משתמש. נסה שוב.' }, { status: 500 })
   }
 
