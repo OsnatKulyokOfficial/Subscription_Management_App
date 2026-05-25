@@ -6,8 +6,8 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
 
-const TEAM_CODE = process.env.NEXT_PUBLIC_TEAM_CODE!
-const COACH_ID = process.env.COACH_ID!
+const TEAM_CODE = process.env.NEXT_PUBLIC_TEAM_CODE!.trim()
+const COACH_ID = process.env.COACH_ID!.trim()
 
 export async function POST(req: NextRequest) {
   const { phone, code, name, isCoach } = await req.json()
