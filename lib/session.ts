@@ -12,8 +12,18 @@ export function getSession(): AppSession | null {
   if (typeof window === 'undefined') return null
   try {
     const match = document.cookie.split('; ').find(row => row.startsWith(KEY + '='))
-    if (!match) return null
-    return JSON.parse(decodeURIComponent(match.split('=')[1]))
+    if (match) return JSON.parse(decodeURIComponent(match.split('=')[1]))
+
+    // Migrate existing localStorage session to cookie
+    const legacy = localStorage.getItem(KEY)
+    if (legacy) {
+      const session = JSON.parse(legacy)
+      setSession(session)
+      localStorage.removeItem(KEY)
+      return session
+    }
+
+    return null
   } catch {
     return null
   }
