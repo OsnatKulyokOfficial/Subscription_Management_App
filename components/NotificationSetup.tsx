@@ -9,7 +9,7 @@ export default function NotificationSetup({ userId }: { userId: string }) {
   const supabase = createClient()
 
   useEffect(() => {
-    // If already granted, register silently
+    if (typeof Notification === 'undefined') return
     if (Notification.permission === 'granted') {
       registerAndSave()
     }
@@ -39,6 +39,7 @@ export default function NotificationSetup({ userId }: { userId: string }) {
     }
   }
 
+  if (typeof Notification === 'undefined') return null
   if (status === 'done' || Notification.permission === 'granted') return null
   if (status === 'denied') return null
 
